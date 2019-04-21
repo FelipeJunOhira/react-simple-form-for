@@ -66,12 +66,7 @@ class App extends Component {
             theme={bootstrap4InlineTheme}
             model={this.state.model}
             errors={this.state.errors}
-            onModelChange={
-              model => {
-                this.setState({ ...this.state, model: model });
-                console.log(model);
-              }
-            }
+            onModelChange={model => this._onModelChange(model)}
             onSubmit={model => this._onSubmit(model)}
           >
             {f => (
@@ -90,12 +85,7 @@ class App extends Component {
           <SimpleFormFor
             model={this.state.model}
             errors={this.state.errors}
-            onModelChange={
-              model => {
-                this.setState({ ...this.state, model: model });
-                console.log(model);
-              }
-            }
+            onModelChange={model => this._onModelChange(model)}
             onSubmit={model => this._onSubmit(model)}
           >
             {f => (
@@ -112,6 +102,11 @@ class App extends Component {
         </header>
       </div>
     );
+  }
+
+  _onModelChange(model) {
+    this.setState({ ...this.state, model: model });
+    console.log(model);
   }
 
   _onSubmit(model) {
