@@ -116,7 +116,7 @@ class App extends Component {
 
   _onSubmit(model) {
     const errors = this._validate(model);
-    console.log(errors);
+
     this.setState({ ...this.state, submitted: true, model: model, errors: errors });
     console.log(model);
   }

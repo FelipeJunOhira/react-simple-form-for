@@ -1,4 +1,3 @@
-import React from 'react';
 import _ from 'lodash';
 
 import bootstrap4BaseTheme from './bootstrap-4';

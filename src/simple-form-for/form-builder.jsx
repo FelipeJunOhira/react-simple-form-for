@@ -23,7 +23,9 @@ export default class FormBuilder {
           options={options}
           model={this.model}
           errors={this.errors[name] || []}
-          onModelChange={this.onModelChange}
+          onFieldChange={value => {
+            this.onModelChange({ ...this.model, [name]: value });
+          }}
         />
       );
     }

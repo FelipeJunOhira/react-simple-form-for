@@ -12,23 +12,19 @@ const theme = {
 
 export default theme;
 
-function TextInput({ name, options, model, onModelChange }) {
+function TextInput({ name, options, model, onFieldChange }) {
   return (
     <div>
       <label>{name}</label>
       <input
         value={model[name] || ''}
-        onChange={
-          event => {
-            onModelChange({ ...model, [name]: event.target.value });
-          }
-        }
+        onChange={event => onFieldChange(event.target.value)}
       />
     </div>
   )
 }
 
-function SelectInput({ name, options, model, onModelChange }) {
+function SelectInput({ name, options, model, onFieldChange }) {
   const { collection } = options;
   const keys = Object.keys(collection);
 
@@ -37,11 +33,7 @@ function SelectInput({ name, options, model, onModelChange }) {
       <label>{name}</label>
       <select
         value={model[name] || ''}
-        onChange={
-          event => {
-            onModelChange({ ...model, [name]: event.target.value })
-          }
-        }
+        onChange={event => onFieldChange(event.target.value)}
       >
         {
           keys.map((key, index) => {
@@ -55,7 +47,7 @@ function SelectInput({ name, options, model, onModelChange }) {
   )
 }
 
-function RadioInput({ name, options, model, onModelChange }) {
+function RadioInput({ name, options, model, onFieldChange }) {
   const { collection } = options;
   const keys = Object.keys(collection);
 
@@ -71,11 +63,7 @@ function RadioInput({ name, options, model, onModelChange }) {
                 name={name}
                 value={key}
                 checked={model[name] === key ? 'checked' : false}
-                onChange={
-                  event => {
-                    onModelChange({ ...model, [name]: event.target.value })
-                  }
-                }
+                onChange={event => onFieldChange(event.target.value)}
                 />
               {collection[key]}
             </span>

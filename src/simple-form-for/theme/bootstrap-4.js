@@ -12,7 +12,7 @@ const theme = {
 
 export default theme;
 
-function TextInput({ name, options, model, onModelChange, errors }) {
+function TextInput({ name, options, model, onFieldChange, errors }) {
   const hasErrors = errors.length > 0;
 
   return (
@@ -23,18 +23,14 @@ function TextInput({ name, options, model, onModelChange, errors }) {
         className={`form-control ${hasErrors ? 'is-invalid' : ''}`}
         id={name}
         value={model[name] || ''}
-        onChange={
-          event => {
-            onModelChange({ ...model, [name]: event.target.value });
-          }
-        }
+        onChange={event => onFieldChange(event.target.value)}
       />
       <InvalidFeedback name={name} errors={errors} />
     </div>
   )
 }
 
-function SelectInput({ name, options, model, onModelChange }) {
+function SelectInput({ name, options, model, onFieldChange }) {
   const { collection } = options;
   const keys = Object.keys(collection);
 
@@ -45,11 +41,7 @@ function SelectInput({ name, options, model, onModelChange }) {
         className="form-control"
         id={name}
         value={model[name] || ''}
-        onChange={
-          event => {
-            onModelChange({ ...model, [name]: event.target.value })
-          }
-        }
+        onChange={event => onFieldChange(event.target.value)}
       >
         {
           keys.map((key, index) => {
@@ -63,7 +55,7 @@ function SelectInput({ name, options, model, onModelChange }) {
   )
 }
 
-function RadioInput({ name, options, model, onModelChange }) {
+function RadioInput({ name, options, model, onFieldChange }) {
   const { collection } = options;
   const keys = Object.keys(collection);
 
@@ -82,11 +74,7 @@ function RadioInput({ name, options, model, onModelChange }) {
                   id={`${name}_${collection[key]}`}
                   value={key}
                   checked={model[name] === key ? 'checked' : false}
-                  onChange={
-                    event => {
-                      onModelChange({ ...model, [name]: event.target.value })
-                    }
-                  }
+                  onChange={event => onFieldChange(event.target.value)}
                 />
               <label className="form-check-label" htmlFor={`${name}_${collection[key]}`}>{collection[key]}</label>
               </div>
