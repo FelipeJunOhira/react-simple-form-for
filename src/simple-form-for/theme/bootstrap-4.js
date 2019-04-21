@@ -12,13 +12,15 @@ const theme = {
 
 export default theme;
 
-function TextInput({ name, options, model, onModelChange }) {
+function TextInput({ name, options, model, onModelChange, errors }) {
+  const hasErrors = errors.length > 0;
+
   return (
     <div className="form-group">
       <label htmlFor={name}>{name}</label>
       <input
         type="text"
-        className="form-control"
+        className={`form-control ${hasErrors ? 'is-invalid' : ''}`}
         id={name}
         value={model[name] || ''}
         onChange={
@@ -27,6 +29,7 @@ function TextInput({ name, options, model, onModelChange }) {
           }
         }
       />
+      <InvalidFeedback name={name} errors={errors} />
     </div>
   )
 }
@@ -100,5 +103,17 @@ function ButtonInput({ name, options }) {
     <button type='submit' className="btn btn-primary">
       {name}
     </button>
+  )
+}
+
+
+// Utils
+function InvalidFeedback({ name, errors }) {
+  if (errors.length === 0) return null;
+
+  return (
+    <div className="invalid-feedback">
+      {name} {errors.join(', ')}
+    </div>
   )
 }

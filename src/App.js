@@ -13,7 +13,8 @@ class App extends Component {
       submitted: false,
       model: {
         name: 'Bob'
-      }
+      },
+      errors: {}
     };
   }
 
@@ -26,12 +27,8 @@ class App extends Component {
           <SimpleFormForProvider theme={bootstrap4Theme}>
             <SimpleFormFor
               model={this.state.model}
-              onSubmit={
-                model => {
-                  this.setState({ submitted: true, model: model });
-                  console.log(model);
-                }
-              }
+              errors={this.state.errors}
+              onSubmit={model => this._onSubmit(model)}
             >
               {f => (
                 <Fragment>
@@ -68,18 +65,14 @@ class App extends Component {
           <SimpleFormFor
             theme={bootstrap4InlineTheme}
             model={this.state.model}
+            errors={this.state.errors}
             onModelChange={
               model => {
                 this.setState({ ...this.state, model: model });
                 console.log(model);
               }
             }
-            onSubmit={
-              model => {
-                this.setState({ submitted: true, model: model });
-                console.log(model);
-              }
-            }
+            onSubmit={model => this._onSubmit(model)}
           >
             {f => (
               <Fragment>
@@ -96,18 +89,14 @@ class App extends Component {
           <hr/>
           <SimpleFormFor
             model={this.state.model}
+            errors={this.state.errors}
             onModelChange={
               model => {
                 this.setState({ ...this.state, model: model });
                 console.log(model);
               }
             }
-            onSubmit={
-              model => {
-                this.setState({ submitted: true, model: model });
-                console.log(model);
-              }
-            }
+            onSubmit={model => this._onSubmit(model)}
           >
             {f => (
               <Fragment>
@@ -123,6 +112,24 @@ class App extends Component {
         </header>
       </div>
     );
+  }
+
+  _onSubmit(model) {
+    const errors = this._validate(model);
+    console.log(errors);
+    this.setState({ ...this.state, submitted: true, model: model, errors: errors });
+    console.log(model);
+  }
+
+  _validate(model) {
+    const errors = {};
+
+    if (model.name && model.name.length > 20) {
+      errors['name'] = errors['name'] || []
+      errors['name'].push('should be smaller')
+    }
+
+    return errors;
   }
 }
 

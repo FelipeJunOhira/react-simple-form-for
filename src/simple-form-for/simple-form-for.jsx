@@ -47,12 +47,17 @@ export default class SimpleFormFor extends Component {
   _buildFormBuilder() {
     const { model } = this.state;
     const onModelChange = this.props.onModelChange || this._onModelChange.bind(this);
+    const { errors } = this.props;
 
     class FormBuilderSublass extends FormBuilder {};
 
     FormBuilderSublass.registerComponents(this.currentTheme.components);
 
-    return new FormBuilderSublass({ model, onModelChange });
+    return new FormBuilderSublass({
+      model,
+      onModelChange,
+      errors
+    });
   }
 
   _onModelChange(model) {

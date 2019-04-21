@@ -1,8 +1,9 @@
 import React from 'react';
 
 export default class FormBuilder {
-  constructor({ model, onModelChange }) {
+  constructor({ model, onModelChange, errors }) {
     this.model = model;
+    this.errors = errors;
     this.onModelChange = onModelChange;
   }
 
@@ -21,6 +22,7 @@ export default class FormBuilder {
           name={name}
           options={options}
           model={this.model}
+          errors={this.errors[name] || []}
           onModelChange={this.onModelChange}
         />
       );
