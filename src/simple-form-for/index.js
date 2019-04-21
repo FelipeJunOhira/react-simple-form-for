@@ -1,13 +1,7 @@
 import React from 'react';
 
 import SimpleFormFor, { ThemeContext } from './simple-form-for';
+import SimpleFormForProvider from './simple-form-for-provider';
 
 export default SimpleFormFor;
-
-export function SimpleFormForProvider({ theme, children }) {
-  return (
-    <ThemeContext.Provider value={theme}>
-      {children}
-    </ThemeContext.Provider>
-  );
-}
+export { SimpleFormForProvider };
